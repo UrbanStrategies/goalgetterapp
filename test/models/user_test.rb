@@ -5,6 +5,11 @@ class UserTest < ActiveSupport::TestCase
     jsonb_initializations!
   end
 
+  test '##publicly_found' do
+    refute(User.publicly_found(users(:student_1).public_link) == nil)
+    assert_nil User.publicly_found(users(:student_private).public_link)
+  end
+  
   test '#identifier' do
     s = users(:student_1)
     assert_nil s.slug

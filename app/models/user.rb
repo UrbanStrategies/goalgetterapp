@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
   delegate :profile_entries, to: :profile
   delegate :school, to: :profile
 
+  def self.publicly_found(slug)
+    u = find_by_slug(slug)
+    u.profile.published? ? u : nil
+  end
+  
   def name_with_school
     if (s = self.school)
       if s.class == Array

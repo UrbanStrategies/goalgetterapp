@@ -1,7 +1,7 @@
 GoalGetter.Helpers.PortfolioLikesFetcher = GoalGetter.Helpers.HeartbeatFetcher.extend
   # DEFINITELY needs to be dryer :( TODO
   url: ->
-    '/profile.json?screen_number=portfolio-likes'
+    '/profile.json?screen_name=portfolio-likes'
 
   initialize: ->
     @_lrt = -1

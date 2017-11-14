@@ -91,11 +91,6 @@ These are notes to help folks contribute to this code base.
   * `app_body_view` creates the individual body screens on demand, and dynamically finds the corresponding view class for each body screen using a name resolution helper method. See more in the *Under The Hood* section. 
   * This dynamic creation also runs a data fetch prior to view rendering. The URL for the data fetch is determined in `models/app_body_model.js` in the method `make_url`. Following the code from there will help determine the internal business logic for how data is laid out.
 
-## The Portfolio View
-
-This view is a bit complicated because it has its own sub-tab structure, whose logic is somewhat duplicated relative to
-how screens are managed for the bottom-menu navigation. 
-
 # Checking Login
 
 The basic page data is stored in the div `page_data`. When the model initializes, it checks this div for various pieces
@@ -127,9 +122,14 @@ The following methods navigate to a new screen:
 
 # Data Retrieval
 
-## List of friends
+## The Portfolio View
 
-* Retrieved via `profiles_controller#show` which passes it on to `services/data_fetchers#portfolio_data`
+This view is a bit complicated because it has its own sub-tab structure, whose logic is somewhat duplicated relative to
+how screens are managed for the bottom-menu navigation.
+
+If the view is for a shared, public, link, which is triggered by the query parameters `screen_name=public-portfolio`, then ---
+
+Each tab is ultimately fetched via the same path, that is, first to `profiles_controller#show` which passes it on to `services/data_fetchers#portfolio_data`
 
 # Styling
 

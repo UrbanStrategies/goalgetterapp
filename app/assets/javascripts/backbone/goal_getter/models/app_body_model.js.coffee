@@ -79,7 +79,7 @@ GoalGetter.Models.AppBodyModel = Backbone.Model.extend
       else if ref == 'overlay'
         '/ajax_requests.json?payload[code]=get-public-url'
       else
-        '/profile.json?screen_number=' + ref
+        '/profile.json?screen_name=' + ref
 
     # additional parameters
     if ref == 'public-portfolio'
@@ -122,22 +122,22 @@ GoalGetter.Models.AppBodyModel = Backbone.Model.extend
     promise = (new GoalGetter.Helpers.FormProcessor(code, data_jq_array)).run().promise
     return promise
 
-  fetch_screen: (screen_number) ->
+  fetch_screen: (screen_name) ->
     # Get everything else on demand.
     model_self = @
-    url = @make_url screen_number
+    url = @make_url screen_name
     $.get(url, (d, s, x) ->
       if d.hasOwnProperty('data') and Object.keys(d.data).length > 0
-        model_self.screen_data_ready[screen_number] = true
+        model_self.screen_data_ready[screen_name] = true
 
-      if screen_number == 'guide-single'
+      if screen_name == 'guide-single'
         model_self.set('guide_data', d.data)
-      else if screen_number == 'overlay'
+      else if screen_name == 'overlay'
         model_self.set('overlay_data', d.data)
       else
         model_self.set d.data
 
-      if screen_number == 'public-portfolio'
+      if screen_name == 'public-portfolio'
         model_self.set('friend_id', model_self.get('id'))
     )
     

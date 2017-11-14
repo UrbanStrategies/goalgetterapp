@@ -73,21 +73,17 @@ class ProfilesController < ApplicationController
       sleep 2
     end
 
-    screen_number = params[:screen_number]
+    screen_name = params[:screen_name]
     d = ({data: {}})
 
     public_user = nil
-    u = if screen_number == 'public-portfolio'
-          public_user = User.find_by(slug: params[:public_name])
-          (public_user && public_user.profile.published?) ? public_user : current_user
-        else
-          current_user
-        end
+    u = (screen_name == 'public-portfolio' && (public_user = User.publicly_found(params[:public_name]))) ? 
+          public_user : current_user
 
     if u
       is_friend = public_user && current_user.friends.include?(public_user)
       d[:data].merge!(
-        case screen_number
+        case screen_name
         when '2'
           counselor_list u
         when '3'

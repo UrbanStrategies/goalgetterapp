@@ -13,24 +13,24 @@ class ProfilesControllerTest < ActionController::TestCase
   
   describe '#show' do
     it 'works for friends' do
-      get :show, xhr: true, params: {format: 'json', screen_number: 'portfolio-friends'}
+      get :show, xhr: true, params: {format: 'json', screen_name: 'portfolio-friends'}
       b = JSON.parse(response.body)['data']['friend_entries']
       assert_equal 2, b.length
     end
     it 'works for likes' do
-      get :show, xhr: true, params: {format: 'json', screen_number: 'portfolio-likes'}
+      get :show, xhr: true, params: {format: 'json', screen_name: 'portfolio-likes'}
       b = JSON.parse(response.body)['data']['likes']
       assert_equal 2, b.length
     end
     
     it 'works for contacts' do
-      get :show, xhr: true, params: {format: 'json', screen_number: '4'}
+      get :show, xhr: true, params: {format: 'json', screen_name: '4'}
       b = JSON.parse(response.body)['data']['user_info']['friends']
       assert_equal 2, b.length
     end
     
     it 'works for counselor screen' do
-      get :show, xhr: true, params: {format: 'json', screen_number: '2'}
+      get :show, xhr: true, params: {format: 'json', screen_name: '2'}
 
       # let student 1 have two counselors in fixtures
       assert_equal 2, JSON.parse(response.body)['data']['user_info']['counselors'].size
@@ -38,7 +38,7 @@ class ProfilesControllerTest < ActionController::TestCase
     end
 
     it 'works for portfolio screen' do
-      get :show, xhr: true, params: {format: 'json', screen_number: '3'}
+      get :show, xhr: true, params: {format: 'json', screen_name: '3'}
       b = JSON.parse response.body
       
       # see fixtures for this data (added WE 4200 on May 20)
@@ -50,7 +50,7 @@ class ProfilesControllerTest < ActionController::TestCase
     end
 
     it 'works for chat screen with couns 1' do
-      get :show, xhr: true, params: {format: 'json', screen_number: 'chat', counselor_id: users(:counselor_1).id}
+      get :show, xhr: true, params: {format: 'json', screen_name: 'chat', counselor_id: users(:counselor_1).id}
       d = JSON.parse(response.body)['data']['user_info']
       # See fixtures
       assert_equal 3, d['rec_count']
@@ -66,14 +66,14 @@ class ProfilesControllerTest < ActionController::TestCase
       r_read = AccountInboxMessage.create message_attachment: content_resources(:cr_2), is_read: true
       
       # new alerts show up for screen keys that don't exist
-      get :show, xhr: true, params: {format: 'json', screen_number: 'nosuchkey'}
+      get :show, xhr: true, params: {format: 'json', screen_name: 'nosuchkey'}
       # r_read won't be shown; one more added in fixtures Aug 8
       assert_equal 2, JSON.parse(response.body)['data']['inbox']['ContentResource'].size
     end
     
     it 'shows alerts with dawn of time logic' do
       AccountInboxMessage.create message_attachment: content_resources(:cr_1), is_read: false
-      get :show, xhr: true, params: {format: 'json', screen_number: 'nosuchkey'}
+      get :show, xhr: true, params: {format: 'json', screen_name: 'nosuchkey'}
       assert_equal 2, JSON.parse(response.body)['data']['inbox'].keys.size
     end
   end

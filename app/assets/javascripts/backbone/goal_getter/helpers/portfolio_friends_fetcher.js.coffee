@@ -1,6 +1,6 @@
 GoalGetter.Helpers.PortfolioFriendsFetcher = GoalGetter.Helpers.HeartbeatFetcher.extend
   url: ->
-    '/profile.json?screen_number=portfolio-friends'
+    '/profile.json?screen_name=portfolio-friends'
 
   initialize: ->
     @_lrt = -1
