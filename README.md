@@ -93,7 +93,8 @@ These are notes to help folks contribute to this code base.
 
 ## The Portfolio View
 
-This view is a bit complicated because it has its own sub-tab structure, whose logic is somewhat duplicated relative to how screens are managed for the bottom-menu navigation.
+This view is a bit complicated because it has its own sub-tab structure, whose logic is somewhat duplicated relative to
+how screens are managed for the bottom-menu navigation. 
 
 # Checking Login
 
@@ -123,6 +124,12 @@ The following methods navigate to a new screen:
 
 1. Get the `HeaderView` to call `change_screens` with an object as the first argument, whose `to` property is set to the name of the destination screen.
 1. Call `pass_navigation()` on an `AppBodyView` instance, with an "options" object (description TBD - it takes the following keys among other details: `to`: the key of the screen to switch to)
+
+# Data Retrieval
+
+## List of friends
+
+* Retrieved via `profiles_controller#show` which passes it on to `services/data_fetchers#portfolio_data`
 
 # Styling
 

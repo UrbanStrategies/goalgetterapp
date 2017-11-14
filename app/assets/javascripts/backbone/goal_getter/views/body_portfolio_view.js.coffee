@@ -66,8 +66,8 @@ GoalGetter.Views.PortfolioView = GoalGetter.Views.ScreenBase.extend
         @update_alert folder
         
       vo = @tab_views[@shown_id].view_obj
-      if typeof vo != 'undefined' and vo.hasOwnProperty('fetcher') #stop fetching
-        @tab_views[@shown_id].view_obj.fetcher.stop()
+      if typeof vo != 'undefined' and vo.hasOwnProperty('fetcher') # pause fetching
+        @tab_views[@shown_id].view_obj.fetcher.pause()
         
       target_view_key = $(e.target).attr('id').replace('goto-', '')
       @tab_views[@shown_id].root_el.hide()

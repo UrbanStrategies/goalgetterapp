@@ -80,8 +80,8 @@ GoalGetter.Views.HeaderView = Backbone.View.extend
     view_self = @
     current_screen = @body_view.screens[@model.current_screen].view_obj
     current_screen.$el.hide()
-    if current_screen.hasOwnProperty('fetcher') # stop fetching
-      current_screen.fetcher.stop()
+    if current_screen.hasOwnProperty('fetcher') # pause fetching
+      current_screen.fetcher.pause()
     
     if @model.garbage_src_screen()
       @body_view.garbage @model.current_screen
