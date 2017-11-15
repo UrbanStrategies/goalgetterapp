@@ -1,4 +1,4 @@
-GoalGetter.Views.PortfolioTabView = GoalGetter.Views.ScreenBase.extend
+GoalGetter.Views.PortfolioTabFriendsView = GoalGetter.Views.ScreenBase.extend
   className: 'portfolio-sub-card'
   initialize: ->
     _.bindAll @, 'render'
@@ -49,39 +49,38 @@ GoalGetter.Views.PortfolioTabView = GoalGetter.Views.ScreenBase.extend
     @$el.html(t_func())
 
     view_self = @
-    # this is not set the first time when the tab is initially loaded
+
     if @entry_refresher.models.length == 0
-      @entry_refresher.set @model.get('friend_entries')
-    return if @entry_refresher.models.length == 0
+      @$el.append @empty_feed_message('No friends in your network.')
+    else
+      @entry_refresher.each (m, i) ->
+        if m.get('entry_type') == 'profile_achievement'
+          str = "added an achievement " + m.get('description')
+        else if m.get('entry_type') == 'profile_work'
+          str = "added job experience at " + m.get('description')
+        else if m.get('entry_type') == 'program'
+          str = "suggested a service at " + m.get('description')
+        else
+          str = "Feed entry " + m.get('description')
 
-    @entry_refresher.each (m, i) ->
-      if m.get('entry_type') == 'profile_achievement'
-        str = "added an achievement " + m.get('description')
-      else if m.get('entry_type') == 'profile_work'
-        str = "added job experience at " + m.get('description')
-      else if m.get('entry_type') == 'program'
-        str = "suggested a service at " + m.get('description')
-      else
-        str = "Feed entry " + m.get('description')
+        card_html = _.template($('#body_portfolio-tab-item_template').html())(
+          description_string: str, entry_name: m.get('user_name'), public_link: m.get('public_link')
+        )
+        
+        e = $(card_html)
+        
+        e.data 'entry-id', m.get('id')
+        e.data 'liked-status', m.get('liked_status')
+        
+        view_self.$el.append e
 
-      card_html = _.template($('#body_portfolio-tab-item_template').html())(
-        description_string: str, entry_name: m.get('user_name'), public_link: m.get('public_link')
-      )
-      
-      e = $(card_html)
-      
-      e.data 'entry-id', m.get('id')
-      e.data 'liked-status', m.get('liked_status')
-      
-      view_self.$el.append e
-
-      btn = e.find('.like')
-      if m.get('liked_status')
-        btn.addClass 'liked'
-        btn.text(String.fromCharCode(9829))
-      else
-        btn.text(String.fromCharCode(9825))
-      e.find('img').attr('src', m.get('img_url'))
+        btn = e.find('.like')
+        if m.get('liked_status')
+          btn.addClass 'liked'
+          btn.text(String.fromCharCode(9829))
+        else
+          btn.text(String.fromCharCode(9825))
+        e.find('img').attr('src', m.get('img_url'))
 
     @$el
     

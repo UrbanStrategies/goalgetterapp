@@ -197,3 +197,10 @@ body {
   }
 }
     
+.empty-message {
+  background-color: $basic-gray;
+  text-align: center;
+  max-width: 95%;
+  margin: 20px auto 0;
+  padding: 15px;
+}

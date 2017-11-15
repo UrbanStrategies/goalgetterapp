@@ -37,16 +37,13 @@ module ProfileUpdaters
   end
 
   def add_achievement(u, params)
-    resp =
-      if valid_data?(params, :card_type, :text)
-        data = params[:payload][:data]
-        p = ProfileEntry.new profile: u.profile, entry_key: 'achievement',
-                             entry_details: {type: data[:card_type], text: data[:text]}
-        p.save
-        {id: p.id}
-      else
-        {}
-      end
+    ((valid_data?(params, :card_type, :text)) ?
+       (
+         p = u.add_achievement params[:payload][:data][:card_type], params[:payload][:data][:text];
+         {id: p.id}
+       )
+     :
+       {})
   end
 
   def add_service(u, params)

@@ -5,7 +5,12 @@ class FriendsTabTest < Capybara::Rails::TestCase
   
   def setup
     Capybara.current_driver = :selenium
-    login_as users(:student_1), scope: :user, run_callbacks: false
+
+    u = create :user
+    v = create :user
+    u.make_friends v
+    v.add_achievement 'work', 'internship'
+    login_as u, scope: :user, run_callbacks: false
     jsonb_initializations!
 
     visit "/"
@@ -20,7 +25,14 @@ class FriendsTabTest < Capybara::Rails::TestCase
     it 'works normally' do
       page.all('.goto')[1].click
       sleep 1
-      assert page.has_content?('pers ach f1.1')
+      assert page.has_content?('internship')
+      page.all('.goto')[2].click
+      sleep 1
+      assert page.has_content?('no likes')
+      
+      page.all('.goto')[1].click
+      sleep 1
+      assert page.has_content?('internship')
     end
   end
   

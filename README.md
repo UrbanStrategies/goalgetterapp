@@ -74,6 +74,10 @@ tab-separated values file, with one user in each row. The column ordering is exp
 
 These are notes to help folks contribute to this code base.
 
+# Data Model
+
+* The list of achievements is stored as `profile_entries` records in the DB. Each record has an `entry_key` column which is set to either 'work' or 'achievement'.
+
 # SPA (views/front end code) Basics
 
 * Written using Backbone JS

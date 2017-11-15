@@ -25,20 +25,23 @@ GoalGetter.Views.PortfolioTabLikesView = GoalGetter.Views.ScreenBase.extend
     view_self = @
     # this is not set the first time when the tab is initially loaded
     if @entry_refresher.models.length == 0
-      return
+      # Store this as an instance variable so we can avoid a jQuery lookup later.
+      @empty_mesg_div = @empty_feed_message('There are no likes on your activities yet!')      
+      @$el.append @empty_mesg_div
+    else
+      @empty_mesg_div.hide()    
+      @entry_refresher.each (m, i) ->
+        str = " liked your entry " + m.get('profile_entry_text')
 
-    @entry_refresher.each (m, i) ->
-      str = " liked your entry " + m.get('profile_entry_text')
+        card_html = _.template($('#body_portfolio-tab-likes-item_template').html())(
+          name: m.get('user_name'),
+          public_link: m.get('public_link'),
+          description_string: str
+        )
+        e = $(card_html)
+        view_self.$el.append e
 
-      card_html = _.template($('#body_portfolio-tab-likes-item_template').html())(
-        name: m.get('user_name'),
-        public_link: m.get('public_link'),
-        description_string: str
-      )
-      e = $(card_html)
-      view_self.$el.append e
-
-      e.find('img').attr('src', m.get('img_url'))
+        e.find('img').attr('src', m.get('img_url'))
 
     @$el
     

@@ -102,6 +102,13 @@ class User < ActiveRecord::Base
     User.where('id in (?)', friend_ids)
   end
 
+  def add_achievement(type, text)
+    p = ProfileEntry.new profile: profile, entry_key: 'achievement',
+                         entry_details: {type: type, text: text}
+    p.save
+    p
+  end
+
   private
   def friendship_ids
     friendships.pluck(:first_friend_id, :second_friend_id).flatten.uniq - [self.id]

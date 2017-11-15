@@ -4,9 +4,9 @@ GoalGetter.Views.ScreenBase = Backbone.View.extend
     insert_into[ref] = {}
     insert_into[ref].view_obj = new GoalGetter.Views[klass]
       model: @model
+
     e = insert_into[ref].view_obj.wait_and_render(ref)
-    @$el.append e    
-    e.show()
+    @$el.append(e.show())
     e
 
   update_alert: (type) ->
@@ -52,3 +52,7 @@ GoalGetter.Views.ScreenBase = Backbone.View.extend
       context.trigger('body:render')
       
     context.$el
+
+  empty_feed_message: (s) ->
+    d = $('<div>').addClass('empty-message').text(s)
+    d
