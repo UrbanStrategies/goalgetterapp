@@ -9,7 +9,8 @@ class MilestoneListingTest < ActiveSupport::TestCase
       m = MilestoneListing.create_from_api_call({'title' => 'title 1', 'description' => 'desc 2', 'enddate' => 'Thu Jul 13 2017'})
     end
 
-    assert_equal ['assigned_to', 'assigned_to_id', 'id', 'title', 'description', 'due_at', 'date', 'month'].sort, m.keys.sort
+    assert_equal ['assigned_on', 'assigned_to', 'assigned_by', 'assigned_to_id', 'id', 'title', 'description', 'due_at', 'date', 'month'].
+                  sort, m.keys.sort
     assert_equal -1, m['assigned_to_id']
   end
 

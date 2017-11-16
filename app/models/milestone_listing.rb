@@ -37,7 +37,8 @@ class MilestoneListing < ActiveRecord::Base
   def api_response
     self.slice('id', 'title', 'description', 'assigned_to_id').merge(
       {due_at: due_in.strftime('%Y%m%d'), date: due_in.strftime('%b'), month: due_in.strftime('%d'),
-       assigned_to: assigned_to&.full_name}
+       assigned_to: assigned_to&.full_name, assigned_on: created_at.strftime('%b %d'),
+       assigned_by: owner&.full_name}
     )
   end
 

@@ -1,7 +1,8 @@
 = render "header_svgs"
 = render "body_svgs"
 = render 'nav_svgs'
-#page_data{"data-network-name" => @network_name, "data-screen-role" => @screen_role, 'data-login-type' => @login_type}
+#page_data{"data-network-name" => @network_name, "data-screen-role" => @screen_role, 'data-login-type' => @login_type,
+           "data-login-id" => @login_id}
 %form#logout_form{method: :post}
   %input{type: 'hidden', name: "_method", value: 'delete'}
 

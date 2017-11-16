@@ -52,6 +52,12 @@ Reports are sent to the email specified in the environment variable `ADMIN_EMAIL
 
 If you want to view the app as an counselor, then go to `https://www.goalgetterapp.org/?role=admin`.
 
+## Adding Milestones
+
+When Administrators create individually assigned milestones, the Milestones tab in a User’s Portfolio will show an alert bubble. The milestones assigned to the user will be show under this tab.
+
+Youth users can mark a milestone complete, whenever they choose to. An alert is sent via the app to the administrator when the youth user does this.
+
 # Admin Interfaces
 
 ## Create a new user

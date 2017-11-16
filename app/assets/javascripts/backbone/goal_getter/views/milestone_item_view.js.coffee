@@ -8,7 +8,9 @@ GoalGetter.Views.MilestoneItemView = GoalGetter.Views.ScreenBase.extend
     a = _.extend({}, @model.attributes, {due_at: moment(t, "YYYYMMDD").fromNow()})
     @$el.html t_func(a)
     
-    unless @model.page_is_admin
+    if !GoalGetter.Models.AppMainModel.page_is_admin
       @$el.find('.assigned-to').hide()
+    else      
+      @$el.find('.assigned-by').hide()
     @$el
     

@@ -31,7 +31,19 @@
       .title
         <%- title %>
       .assigned-to
-        Assigned to: <%- assigned_to %>
+        Assigned to
+        %span.bold-font
+          <%- assigned_to %>
+        by you on
+        %span.bold-font
+          <%- assigned_on %>
+      .assigned-by
+        Assigned by
+        %span.bold-font
+          <%- assigned_by %>
+        on
+        %span.bold-font
+          <%- assigned_on %>
         
       .due-in
         <%- due_at %>

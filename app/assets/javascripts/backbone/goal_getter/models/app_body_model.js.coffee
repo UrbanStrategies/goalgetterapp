@@ -1,5 +1,6 @@
 GoalGetter.Models.AppBodyModel = Backbone.Model.extend
   initialize: ->
+    @data_div = $('#page_data')    
     @logged_in = 'none'
     @is_category = true
     @current_screen = '0'
@@ -23,16 +24,14 @@ GoalGetter.Models.AppBodyModel = Backbone.Model.extend
     !@screen_data_ready[key] and (_.contains(login_requirement, 'none') or _.contains(login_requirement, @logged_in))
     
   set_screen_by_role: ->
-    data_div = $('#page_data')
-    @page_is_admin = (data_div.data('screen-role') == 'admin')
+    @page_is_admin = (@data_div.data('screen-role') == 'admin')
     if @page_is_admin
       @current_screen = 'jobboard'
       
   # entry point from views/control_view
   init_fetch: ->
-    data_div = $('#page_data')
-    @logged_in = data_div.data('login-type')
-    @network_name = data_div.data('network-name')
+    @logged_in = @data_div.data('login-type')
+    @network_name = @data_div.data('network-name')
     model_self = @
     
     $.get('/taxonomy/list_names.json?level=1', (d, s, x) ->

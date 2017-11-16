@@ -147,7 +147,9 @@ GoalGetter.Views.HeaderView = Backbone.View.extend
       @set_publish_status()
 
     if @model.logged_in != 'none'
-      @$el.find('.header-actions .item#logout').css 'display', 'inline-block'
+      e = @$el.find('.header-actions .item#logout')
+      e.css 'display', 'inline-block'
+      e.find('.tool-icon-img').attr 'title', @model.data_div.data('login-id')
     if @model.has_header_behavior('save') and @model.logged_in != 'none'
       @$el.find('.header-actions .item#save').css 'display', 'inline-block'
       gd = @model.get('guide_data')
